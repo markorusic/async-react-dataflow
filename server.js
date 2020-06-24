@@ -1,5 +1,5 @@
 const faker = require('faker')
-const { chain, range, random, keyBy, uniqueId } = require('lodash')
+const { chain, range, random, uniqueId } = require('lodash')
 
 const USER_COUNT = 100
 const POSTS_PER_USER = { min: 2, max: 35 }
