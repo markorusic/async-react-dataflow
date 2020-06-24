@@ -1,3 +1,8 @@
+export interface Page<T> {
+  totalElements: number
+  content: T[]
+}
+
 export interface User {
   id: string
   name: string

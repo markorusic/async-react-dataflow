@@ -11,7 +11,9 @@ const App = () => {
   const [title, setTitle] = useState('')
   const [activePost, setActivePost] = useState<Post | null>(null)
 
-  const posts = useQuery(['posts', title], () => fetchPosts(title))
+  const posts = useQuery(['posts', title], () =>
+    fetchPosts({ title_like: title })
+  )
 
   return (
     <div className="container mx-auto p-10">
@@ -24,7 +26,7 @@ const App = () => {
           />
           <AsyncContainer query={posts}>
             <PostList
-              data={posts.data}
+              data={posts.data?.content}
               onItemClick={post => setActivePost(post)}
             />
           </AsyncContainer>

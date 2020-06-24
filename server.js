@@ -14,7 +14,6 @@ module.exports = () => {
     photo:
       'https://www.pngkey.com/png/full/230-2301779_best-classified-apps-default-user-profile.png'
   }))
-  const usersById = keyBy(users, 'id')
 
   const posts = chain(users)
     .map(user => {
@@ -37,7 +36,7 @@ module.exports = () => {
       return range(0, commentCount).map(() => ({
         id: uniqueId('comment_'),
         postId: post.id,
-        user: usersById[post.userId],
+        user: users[random(0, users.length - 1)],
         content: faker.lorem.sentences(1),
         createdAt: faker.date.past()
       }))
