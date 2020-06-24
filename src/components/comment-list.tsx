@@ -13,7 +13,7 @@ const CommentList: React.FC<CommentListProps> = ({ data }) => {
           data.map(comment => (
             <li
               key={comment.id}
-              className="flex items-center border select-none rounded text-gray-600 text-sm mb-1 p-2"
+              className="flex items-center border rounded text-gray-600 text-sm mb-1 p-2"
             >
               <img
                 className="rounded-full mr-5 w-10 h-10"
