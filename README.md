@@ -21,3 +21,5 @@ Run React dev server:
 ```sh
 npm start
 ```
+
+> [Slides](slides/01.md)
