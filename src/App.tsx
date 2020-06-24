@@ -1,29 +1,39 @@
-import React from 'react'
-import { Switch, Link, Route, BrowserRouter } from 'react-router-dom'
-import PostPage from './PostPage'
-import HomePage from './HomePage'
+import React, { useState } from 'react'
+import { useQuery } from 'react-query'
+import SearchInput from './components/search-input'
+import { fetchPosts } from './api-client'
+import PostList from './components/post-list'
+import AsyncContainer from './components/async-container'
+import { Post } from './types'
+import PostDetails from './components/post-details'
 
 const App = () => {
+  const [title, setTitle] = useState('')
+  const [activePost, setActivePost] = useState<Post | null>(null)
+
+  const posts = useQuery(['posts', title], () => fetchPosts(title))
+
   return (
-    <BrowserRouter>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-          </ul>
-        </nav>
-        <Switch>
-          <Route path="/posts/:id">
-            <PostPage />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
+    <div className="container mx-auto p-10">
+      <div className="grid grid-cols-8 gap-10">
+        <div className="col-span-4 xl:col-span-3 xl:col-start-2">
+          <SearchInput
+            autoFocus
+            placeholder="Post search..."
+            onChange={setTitle}
+          />
+          <AsyncContainer query={posts}>
+            <PostList
+              data={posts.data}
+              onItemClick={post => setActivePost(post)}
+            />
+          </AsyncContainer>
+        </div>
+        <div className="col-span-4 xl:col-span-3">
+          {activePost && <PostDetails post={activePost} />}
+        </div>
       </div>
-    </BrowserRouter>
+    </div>
   )
 }
 
